@@ -1,6 +1,7 @@
 package console_shapes.container
 
 import console_shapes.shapes.Shape
+import console_shapes.shapes.Square
 
 class Panel {
     private val shapes = mutableListOf<Shape>()

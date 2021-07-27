@@ -1,49 +1,25 @@
-import console_shapes.container.Panel
 import console_shapes.shapes.*
+import console_shapes_dsl.external.*
 
 fun main() {
-    val panel = Panel()
-    val square = Square(8, 'd')
-    val triangle = Triangle(7, 's')
-    val rhombus = Rhombus(11, 'l')
+    panel {
+        repeat(5) {
+            composed {
+                val rhombus = rhombus {
+                    lines = it + 1
+                    char = 'z' - it
+                }
+                val triangle = triangle {
+                    lines = it + 1
+                }
+                val square = square {
+                    lines = it + 1
+                    char = 'a' + it
+                }
 
-    panel.addShape(square)
-    panel.addShape(Space)
-    panel.addShape(triangle)
-    panel.addShape(Space)
-    panel.addShape(rhombus)
-    panel.addShape(Space)
-    panel.addShape(
-        ComposedShape(square, rhombus, ComposedShape.Operation.UNION)
-    )
-    panel.addShape(Space)
-    panel.addShape(
-        ComposedShape(rhombus, triangle, ComposedShape.Operation.UNION)
-    )
-    panel.addShape(Space)
-    panel.addShape(
-        ComposedShape(square, rhombus, ComposedShape.Operation.INTERSECTION)
-    )
-    panel.addShape(Space)
-    panel.addShape(
-        ComposedShape(rhombus, triangle, ComposedShape.Operation.INTERSECTION)
-    )
-    panel.addShape(Space)
-    panel.addShape(
-        ComposedShape(
-            ComposedShape(square, rhombus, ComposedShape.Operation.UNION),
-            triangle,
-            ComposedShape.Operation.UNION
-        )
-    )
-    panel.addShape(Space)
-    panel.addShape(
-        ComposedShape(
-            ComposedShape(square, rhombus, ComposedShape.Operation.INTERSECTION),
-            triangle,
-            ComposedShape.Operation.INTERSECTION
-        )
-    )
-
-    panel.print()
+                rhombus union triangle intersection square
+            }
+            space()
+        }
+    }.print()
 }
